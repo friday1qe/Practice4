@@ -1,3 +1,5 @@
+// 2 таск в процесі виконання
+
 const { faker } = require('@faker-js/faker')
 
 class User {
