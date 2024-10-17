@@ -8,8 +8,8 @@ let dataOfUsers = [];
 class User {
     constructor(name, email, nickname, ownPosts) {
         this.name = name, // faker.person.firstName();
-        this.email = email, // `${this.name.toLowerCase()}@${faker.internet.domainName()}`; // Генеруємо email на основі імені з випадковим доменом
-        this.nickname = nickname // `${this.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`; // Генеруємо нікнейм на основі імені з додаванням випадкового числа
+            this.email = email, // `${this.name.toLowerCase()}@${faker.internet.domainName()}`; // Генеруємо email на основі імені з випадковим доменом
+            this.nickname = nickname // `${this.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`; // Генеруємо нікнейм на основі імені з додаванням випадкового числа
         this.ownPosts = ownPosts;
     }
 }
@@ -17,9 +17,9 @@ class User {
 class Post {
     constructor(owner, likes, comments, creationDate) {
         this.owner = owner,
-        this.liker = likes,
-        this.comments = comments,
-        this.creationDate = creationDate
+            this.likes = likes,
+            this.comments = comments,
+            this.creationDate = creationDate
     }
 }
 
@@ -36,22 +36,23 @@ function createUser(userCount) {
         dataOfUsers.push(u);
     }
 }
-createUser(selectUserCount, Post);
+createUser(selectUserCount);
 
-function postsAdding() {
-    let p = new createPost;
-    p.owner;
-    p.likes = Math.floor(Math.random() * 600);  
-    p.comments = this.nickname;
+function createPost(dataOfUsers) {
+    dataOfUsers.forEach(user => {
+        const countOfPosts = Math.floor(Math.random() * 11);
+        for (let i = 0; i < countOfPosts; i++) {
+            let p = new Post;
+            p.owner = user.nickname;
+            p.likes = Math.floor(Math.random() * 600);
+            p.comments = 'blabla';
+            let postDate = `${faker.date.anytime()}`;
+            p.creationDate = postDate; // .split('T')[0];
+            user.ownPosts.push(p);
+        }
+    })
 }
-
-
-function createPost() {
-    let p = new createPost;
-    p.owner = this.nickname;
-    p.likes = Math.random()*10;  
-    p.comments = this.nickname;
-}
+createPost(dataOfUsers);
 
 console.log(dataOfUsers[0].ownPosts[0]);
 
@@ -60,7 +61,7 @@ console.log(Math.floor(Math.random() * 100));
 // 1 В системі є користувачі
 // 2 кожен користувач має ім'я , імейл та нікнейм ( @nickname) - дані описані в коді
 // 3 у кожного користувача є його пости в соц мережі
-// 4 кожен пост має дату створення, текст поста, кількість лайків , коментарі до посту 
+// 4 кожен пост має дату створення, текст поста, кількість лайків , коментарі до посту
 // 5 користувач може отримати остані 5 постів іншого користувача (вивести в консоль повну інформацію про остані 5 постів)
 // 6 коистувач може поставити лайк чи написати коментар до поста іншого користувача
 // 7 користувач може створити собі новий пост
