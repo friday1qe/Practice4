@@ -7,19 +7,19 @@ let dataOfUsers = [];
 
 class User {
     constructor(name, email, nickname, ownPosts) {
-        this.name = name, // faker.person.firstName();
-            this.email = email, // `${this.name.toLowerCase()}@${faker.internet.domainName()}`; // Генеруємо email на основі імені з випадковим доменом
-            this.nickname = nickname // `${this.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`; // Генеруємо нікнейм на основі імені з додаванням випадкового числа
+        this.name = name;
+        this.email = email;
+        this.nickname = nickname;
         this.ownPosts = ownPosts;
     }
 }
 
 class Post {
     constructor(owner, likes, comments, creationDate) {
-        this.owner = owner,
-            this.likes = likes,
-            this.comments = comments,
-            this.creationDate = creationDate
+        this.owner = owner;
+        this.likes = likes;
+        this.comments = comments;
+        this.creationDate = creationDate;
     }
 }
 
@@ -29,8 +29,8 @@ function createUser(userCount) {
     for (let i = 0; i < userCount; i++) {
         let u = new User();
         u.name = faker.person.firstName();
-        u.email = `${u.name.toLowerCase()}@${faker.internet.domainName()}`;
-        u.nickname = `${u.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`;
+        u.email = `${u.name.toLowerCase()}@${faker.internet.domainName()}`; // Генеруємо email на основі імені з випадковим доменом
+        u.nickname = `${u.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`; // Генеруємо нікнейм на основі імені з додаванням випадкового числа
         u.ownPosts = [];
 
         dataOfUsers.push(u);
@@ -46,17 +46,25 @@ function createPost(dataOfUsers) {
             p.owner = user.nickname;
             p.likes = Math.floor(Math.random() * 600);
             p.comments = 'blabla';
-            let postDate = `${faker.date.anytime()}`;
-            p.creationDate = postDate; // .split('T')[0];
+
+            const fullDate = faker.date.past();
+            // const year = fullDate.getFullYear();
+            // const month = String(fullDate.getMonth() + 1).padStart(2, '0'); // Додаємо 1, оскільки getMonth() повертає місяці з 0 до 11
+            // const day = String(fullDate.getDate()).padStart(2, '0');
+            const postDate = fullDate.toISOString().split('T')[0];
+            p.creationDate = postDate;
+
             user.ownPosts.push(p);
+
+            user.ownPosts.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate));
         }
     })
 }
 createPost(dataOfUsers);
 
-console.log(dataOfUsers[0].ownPosts[0]);
 
-console.log(Math.floor(Math.random() * 100));
+console.log(dataOfUsers[0].ownPosts);
+
 
 // 1 В системі є користувачі
 // 2 кожен користувач має ім'я , імейл та нікнейм ( @nickname) - дані описані в коді
