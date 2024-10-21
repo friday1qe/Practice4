@@ -1,6 +1,6 @@
 // 2 таск в процесі виконання
 
-const { faker } = require('@faker-js/faker')
+const faker = window.faker;
 
 const selectUserCount = 3;
 let dataOfUsers = [];
@@ -28,7 +28,7 @@ class Post {
 function createUser(userCount) {
     for (let i = 0; i < userCount; i++) {
         let u = new User();
-        u.name = faker.person.firstName();
+        u.name = faker.name.firstName();
         u.email = `${u.name.toLowerCase()}@${faker.internet.domainName()}`; // Генеруємо email на основі імені з випадковим доменом
         u.nickname = `${u.name.toLowerCase()}${Math.floor(Math.random() * 100) + 1}`; // Генеруємо нікнейм на основі імені з додаванням випадкового числа
         u.ownPosts = [];
@@ -62,9 +62,13 @@ function createPost(dataOfUsers) {
 }
 createPost(dataOfUsers);
 
-
 console.log(dataOfUsers[0].ownPosts);
 
+
+function buttonClicked() {
+    alert('Кнопку було натиснуто!');
+}
+document.getElementById('myButton').addEventListener('click', buttonClicked);
 
 // 1 В системі є користувачі
 // 2 кожен користувач має ім'я , імейл та нікнейм ( @nickname) - дані описані в коді
